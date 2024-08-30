@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+    {   //task1
+        console.log('-----------------task1-----------------');
+        const car = {
+            brand: undefined,
+            model: null,
+            year: NaN,
+            color: 'blue',
+
+            getInfo: function() {
+                return `Car: ${this.brand} ${this.model}, Year: ${this.year}, Color: ${this.color}`;
+            },
+
+            getAge: function() {
+                const currentYear = new Date().getFullYear();
+                return currentYear - this.year;
+            },
+
+            repaint: function(newColor) {
+                this.color = newColor;
+                return `The car has been repainted to ${this.color}`;
+            }
+        };
+
+        let x = "2";
+        let clone1 = objToClone(x);
+
+        function objToClone (obj) {
+            if (typeof obj === "object") {
+                let clone = {};
+                for (const key in obj) {
+                    if (obj[key] === null || obj[key] === undefined || Number.isNaN(obj[key]))
+                        continue;
+                    clone[key] = obj[key];
+                }
+
+                return clone;
+            }
+            else
+                return console.log("Incorrect obj");
+        }
+        console.log(car);
+        console.log(clone1);
+    }
+
+    {   //task2
+        console.log('-----------------task2-----------------');
+        let coursesAndDurationArray = [
+            {title: 'JavaScript Complex', monthDuration: 5},
+            {title: 'Java Complex', monthDuration: 6},
+            {title: 'Python Complex', monthDuration: 6},
+            {title: 'QA Complex', monthDuration: 4},
+            {title: 'FullStack', monthDuration: 7},
+            {title: 'Frontend', monthDuration: 4}
+        ];
+
+        coursesAndDurationArray.map((a, i) => a.id = ++i);
+
+        console.log(coursesAndDurationArray);
+    }
+</script>
+</body>
+</html>
