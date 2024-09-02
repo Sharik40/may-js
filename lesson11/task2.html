@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+  fetch('https://dummyjson.com/recipes?limit=50')
+          .then(res => res.json())
+          .then(res => {
+            let {recipes} = res;
+            console.log(recipes);
+
+
+            let div = document.createElement("div");
+            div.classList.add("box");
+            document.body.appendChild(div);
+
+            for (const recipe of recipes) {
+              let divRecipe = document.createElement("div");
+              divRecipe.classList.add("recipe");
+              div.appendChild(divRecipe);
+              divRecipe.innerText = (`
+                    "id": ${recipe.id},
+                    "name": ${recipe.name},
+                    "ingredients": ${JSON.stringify(recipe.ingredients)},
+                    "instructions": ${JSON.stringify(recipe.instructions)},
+                    "prepTimeMinutes": ${recipe.prepTimeMinutes},
+                    "cookTimeMinutes": ${recipe.cookTimeMinutes},
+                    "servings": ${recipe.servings},
+                    "difficulty": ${recipe.difficulty},
+                    "cuisine": ${recipe.cuisine},
+                    "caloriesPerServing": ${recipe.caloriesPerServing},
+                    "tags": ${JSON.stringify(recipe.tags)},
+                    "userId": ${recipe.userId},
+                    "rating": ${recipe.rating},
+                    "reviewCount": ${recipe.reviewCount},
+                    "mealType": ${JSON.stringify(recipe.mealType)}
+                  `);
+                let ulIngredients = document.createElement("ul");
+                divRecipe.appendChild(ulIngredients);
+                let firstLi = document.createElement("li");
+                ulIngredients.appendChild(firstLi);
+                firstLi.innerText = '"ingredients": ';
+                firstLi.style.listStyle = "none";
+                firstLi.style.fontSize = "22px";
+                for (const ingredient of recipe.ingredients) {
+                    let li = document.createElement("li");
+                    ulIngredients.appendChild(li);
+                    li.innerText = ingredient;
+                }
+                let img = document.createElement("img");
+                divRecipe.appendChild(img);
+                img.src = recipe.image;
+                div.appendChild(document.createElement("hr"));
+            }
+          });
+</script>
+</body>
+</html>
