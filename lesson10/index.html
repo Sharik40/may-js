@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1 id="1">Hello</h1>
+<button id="btn">Hide</button><br>
+
+
+<script>
+    {   //task1
+        document.getElementById("btn").onclick = function () {
+            document.getElementById("1").style.display = 'none';
+        }
+    }
+
+    {   //task2
+        document.write('-----------------task2-----------------');
+
+    }
+
+    {   //task5
+        let sessionsList;
+        if (localStorage.getItem('dates')) {
+            sessionsList = JSON.parse(localStorage.getItem('dates'));
+        }
+        else {
+            sessionsList = [];
+        }
+
+        sessionsList.push(new Date());
+        localStorage.setItem('dates', JSON.stringify(sessionsList));
+    }
+</script>
+</body>
+</html>
