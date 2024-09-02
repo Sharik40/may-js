@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <h1 id="text">Hello</h1>
+  <input type="button" value="hide" id="btn">
+  <br><hr>
+  <form name="form2">
+      <input type="number" name="age">
+      <button>save</button>
+  </form>
+  <br><hr>
+  <form name="form3">
+      <input type="text" name="firstName">
+      <input type="text" name="lastName">
+      <input type="number" name="age">
+      <button>save</button>
+  </form>
+  <br><hr>
+  <div id="numbers"></div>
+  <br><hr>
+  <form name="form6">
+      <label>
+          kg:
+          <input type="number" name="kg">
+      </label>
+      <label>
+          lbs:
+          <input type="number" name="lbs">
+      </label>
+  </form>
+  <br><hr>
+  <form name="form8">
+      <label>
+          Кількість рядків:
+          <input type="number" name="rows">
+      </label>
+      <label>
+          Кількість стовпців:
+          <input type="number" name="columns">
+      </label>
+      <label>
+          Вміст клітинок:
+          <input type="text" name="content">
+      </label>
+      <button>Створити таблицю</button>
+  </form>
+  <br><hr>
+  <div id="cash"></div>
+
+<script>
+  { //task1
+    let btn = document.getElementById("btn");
+    btn.onclick = function () {
+      document.getElementById("text").style.display = 'none';
+    };
+  }
+
+  { //task2
+      let form = document.forms.form2;
+      form.onsubmit = function () {
+          if (form[0].value >= 18) {
+              alert("Допустимий вік");
+          }
+          else {
+              alert("Недопустимий вік");
+          }
+      };
+  }
+
+  { //task3
+      let form = document.forms.form3;
+
+      form.addEventListener('submit', (e) => {
+         e.preventDefault();
+         const firstName = form.firstName.value;
+         const lastName = form.lastName.value;
+         const age = form.age.value;
+         const person = {firstName, lastName, age};
+         let div = document.createElement("div");
+         document.body.appendChild(div);
+         div.innerText = person.firstName + ' ' + person.lastName + ' ' + age;
+      });
+  }
+
+  {   //task4
+      let div =  document.getElementById("numbers");
+      let i = localStorage.getItem("i") || 0;
+      i++;
+      localStorage.setItem("i", i);
+      div.innerText = i;
+  }
+
+  {   //task5
+      let sessionsList;
+      if (localStorage.getItem('dates')) {
+          sessionsList = JSON.parse(localStorage.getItem('dates'));
+      }
+      else {
+          sessionsList = [];
+      }
+
+      sessionsList.push(new Date());
+      localStorage.setItem('dates', JSON.stringify(sessionsList));
+  }
+
+  { //task6
+    let form = document.forms.form6;
+    form.kg.oninput = function () {
+        form.lbs.value = this.value * 2.205;
+    }
+  }
+
+  { //task7
+      //addToLocalStorage(arrayName:string,objToAdd:any{}):void
+    function addToLocalStorage (arrayName, objToAdd) {
+        let arr = JSON.parse(localStorage.getItem(arrayName)) || [];
+        arr.push(objToAdd);
+        localStorage.setItem(arrayName, JSON.stringify(arr));
+    }
+
+    addToLocalStorage('mas', {name: "v", id: 1});
+      addToLocalStorage('mas', {name: "qwd", id: 2});
+      addToLocalStorage('mas', {name: "qwfgq", id: 3});
+
+  }
+
+  { //task8
+      let form = document.forms.form8;
+      form.addEventListener('submit', e => {
+          e.preventDefault();
+          let row = form.rows.value;
+          let column = form.columns.value;
+          let content = form.content.value;
+          let table = document.createElement("table")
+          document.body.appendChild(table);
+          for (let i = 0; i < row; i++) {
+              let tr = document.createElement("tr");
+              table.appendChild(tr);
+              for (let j = 0; j < column; j++) {
+                  let th = document.createElement("th");
+                  tr.appendChild(th);
+                  th.innerText = content;
+              }
+          }
+      });
+  }
+
+  {   //task9
+      let time = new Date().getTime();
+      let div =  document.getElementById("cash");
+      let times = JSON.parse(localStorage.getItem("times")) || [];
+      times.push(time);
+      let cash = +localStorage.getItem("cash") || 100;
+          if (times[times.length - 1] - times[times.length - 2] > 10000) {
+              cash+=10;
+          }
+      localStorage.setItem("cash", JSON.stringify(cash));
+      localStorage.setItem("times", JSON.stringify(times));
+      div.innerText = cash + "грн";
+  }
+
+</script>
+</body>
+</html>

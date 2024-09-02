@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form name="form1">
+  <div id="content"></div>
+  <button id="prev" type="reset">prev</button>
+  <button id="next" type="submit">next</button>
+</form>
+
+<script>
+  const arr = [];
+  for (let i = 0; i < 100; i++) {
+    const obj = {
+      id: i,
+      name: `Object ${i}`,
+      value: Math.random()
+    };
+    arr.push(obj);
+  }
+  console.log(arr);
+
+  let form = document.forms.form1;
+  let page = 1;
+
+  for (let i = 0; i < 10; i++) {
+     let div = document.createElement("div");
+      div.classList.add("list");
+     document.getElementById("content").appendChild(div);
+     div.innerText = arr[i].id + ' ' + arr[i].name + ' ' + arr[i].value;
+  }
+
+  form1.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (page < 10)
+        page++;
+      let temp = page * 10 - 10;
+      if (page <= 10) {
+          for (let i = 0; i < 10; i++) {
+              let list = document.getElementsByClassName("list");
+              list[i].innerText = arr[temp + i].id + ' ' + arr[temp + i].name + ' ' + arr[temp + i].value;
+          }
+      }
+      console.log(page);
+  });
+
+  form1.addEventListener('reset', (e) => {
+      e.preventDefault();
+      if (page > 1)
+        page--;
+      let temp = page * 10 - 10;
+      if (page >= 1) {
+          for (let i = 0; i < 10; i++) {
+              let list = document.getElementsByClassName("list");
+              list[i].innerText = arr[temp + i].id + ' ' + arr[temp + i].name + ' ' + arr[temp + i].value;
+          }
+      }
+      console.log(page);
+  });
+</script>
+</body>
+</html>
